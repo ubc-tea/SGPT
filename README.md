@@ -20,7 +20,7 @@ pip install -r requirements.txt
 mkdir data
 mkdir checkpoints
 ```
-then you need to download the [pretrained imagenet-21k](https://github.com/google-research/vision_transformer) model and rename it to imagenet21k_ViT-B_16.npz into checkpoints folder. you can download it [here](https://drive.google.com/file/d/17CUMf4m8mNAvT8iyhytIVM0WXy1dINUE/view?usp=sharing)
+then you need to download the [pretrained imagenet-21k](https://github.com/google-research/vision_transformer) model and rename it to imagenet21k_ViT-B_16.npz into checkpoints folder. You can also download it [here](https://drive.google.com/file/d/17CUMf4m8mNAvT8iyhytIVM0WXy1dINUE/view?usp=sharing).
 ## Datasets
 
 We provide two federated benchmark datasets spanning image classification task CIFAR100 and officenet for label heterogentiy and feature heterogentiy respectively.
