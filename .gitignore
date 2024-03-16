@@ -2,6 +2,7 @@ data/
 results_table/
 *.ipynb
 logs/
+SGPT/
 __pycache__/
 *.npz
 .Python

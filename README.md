@@ -11,6 +11,8 @@ Vision Transformers (ViT) and Visual Prompt Tuning (VPT) achieve state-of-the-ar
 To install requirements:
 
 ```setup
+python -m venv SGPT
+source SGPT/bin/activate
 pip install -r requirements.txt
 ```
 
@@ -23,9 +25,15 @@ then you need to download the [pretrained imagenet-21k](https://github.com/googl
 
 We provide two federated benchmark datasets spanning image classification task CIFAR100 and officenet for label heterogentiy and feature heterogentiy respectively.
 
-For CIFAR100 and officenet dataset, download and unzip data under 'data' file catalog. 
-Or simply run corresponding algorithm and our program will download data automatically.
+### CIFAR100
+For CIFAR100 dataset, download and unzip data under 'data' file catalog or simply run corresponding algorithm and our program will download data automatically.
 
+### office-caltech10
+Please download our pre-processed datasets [here](https://mycuhk-my.sharepoint.com/:u:/g/personal/1155149226_link_cuhk_edu_hk/EaBgx5UmvatMi0KdvfdLWsABC49vcjZ2n9oZkjwl8jPMyA?e=TDxqN5), put under data/ directory and perform following commands:
+```
+cd ./data
+unzip office_caltech_10_dataset.zip
+```
 
 ## Usage
 Here is one example to run our  SGPT, we provide the parameter used to train each task in the tran.sh, select the corresponding task and command other tasks and run the following comman
