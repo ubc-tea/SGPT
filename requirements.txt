@@ -1,0 +1,11 @@
+torch --no-index
+torchvision --no-index
+pyyaml --no-index
+scikit-learn --no-index
+matplotlib --no-index
+pandas --no-index
+pretrainedmodels --no-index
+openpyxl --no-index
+einops --no-index
+ml-collections --no-index
+python_papi 
