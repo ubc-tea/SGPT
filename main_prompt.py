@@ -40,7 +40,6 @@ def get_args():
     parser.add_argument('--moment', type=float, default=0.5, help='momentum key')
     parser.add_argument('--moment_p', type=float, default=0.5, help='momentum prompt')
     parser.add_argument('--domain_query', action='store_true')   
-    parser.add_argument('--leaky', action='store_true') 
     parser.add_argument('--all_moment', action='store_true') 
     parser.add_argument('--root_path', type=str, default='', help='Noise type: None/increasng/space')
     """
@@ -53,7 +52,6 @@ def get_args():
     parser.add_argument("--key_prompt", type=int, default=0, help='cluster numbers')   
     parser.add_argument('--avg_key', action='store_true')   
     parser.add_argument('--cls_num', type=int, default=10) 
-    parser.add_argument('--initial_g', action='store_true',help='xavier initial group prompts elase 0') 
     parser.add_argument('--share_blocks', nargs='+', type=int, default=[], help="shared transformer set 6 ")
     parser.add_argument('--share_blocks_g', nargs='+', type=int,  default=[], help="shared transformer set 6 ")
     

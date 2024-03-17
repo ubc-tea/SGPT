@@ -272,15 +272,6 @@ class Transformer(nn.Module):
         encoded, attn_weights = self.encoder(embedding_output)
         return encoded, attn_weights
         
-# Sparsely-Gated Mixture-of-Experts Layers.
-# See "Outrageously Large Neural Networks"
-# https://arxiv.org/abs/1701.06538
-#
-# Author: David Rau
-#
-# The code is based on the TensorFlow implementation:
-# https://github.com/tensorflow/tensor2tensor/blob/master/tensor2tensor/utils/expert_utils.py
-
 class VisionTransformer_m(nn.Module):
     def __init__(self, config, img_size=224, num_classes=21843, vis=False, args = None):
         super(VisionTransformer_m, self).__init__()
@@ -307,10 +298,9 @@ class VisionTransformer_m(nn.Module):
             self.prompt_embeddings = nn.ModuleDict({str(j):nn.ParameterList([nn.Parameter(torch.zeros(
                 1,1, config.hidden_size)) for _ in range(self.num_group)]) for j in range(len(self.share_blocks_g))})   
             self.ortho_keys(self.num_group,config)
-            if self.args.initial_g:
-                for key in self.prompt_embeddings.keys():
-                    for prompt in self.prompt_embeddings[key]:
-                        nn.init.uniform_(prompt.data.data, -val, val)
+            for key in self.prompt_embeddings.keys():
+                for prompt in self.prompt_embeddings[key]:
+                    nn.init.uniform_(prompt.data.data, -val, val)
         self.transformer = Transformer(config, img_size, vis)
         self.head = Linear(config.hidden_size, num_classes)
     @staticmethod
@@ -433,10 +423,7 @@ class VisionTransformer_m(nn.Module):
             for module in self.children():
                 module.train(mode)
     def clusters_g(self,x):
-        if self.args.leaky:
-            query_norm = F.normalize(F.leaky_relu(x),dim=-1)
-        else:
-            query_norm = F.normalize(F.relu(x),dim=-1)
+        query_norm = F.normalize(F.relu(x),dim=-1)
         prompt_key_norm = F.normalize(self.prompt_keys,dim=-1)
         prompt_sim  = torch.matmul(query_norm,prompt_key_norm.T)
         if self.training: 
