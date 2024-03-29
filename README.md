@@ -36,11 +36,11 @@ unzip office_caltech_10_dataset.zip
 ```
 
 ## Usage
-Here is one example to run our  SGPT, we provide the parameter used to train each task in the tran.sh, select the corresponding task and command other tasks and run the following comman
+Here is one example to run our  SGPT, we provide the parameter used to train each task in the tran.sh, select the corresponding task and command other tasks and run the following command.
 ```
 sh train.sh
 ```
-
+If you need to use SGPT for other tasks, make sure selection module have meaninful data structure clustering.
 
 Our [paper]([https://ieeexplore.ieee.org/abstract/document/9197069](https://arxiv.org/abs/2310.18285)) appears at CVPR 2024. If you use, compare with, or refer to this work, please cite
 
