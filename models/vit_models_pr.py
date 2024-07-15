@@ -383,9 +383,9 @@ class VisionTransformer_m(nn.Module):
             x, weights = layer_block(x)
         x = self.transformer.encoder.encoder_norm(x)
         if self.selection:
-            cls_token = x[:,:len(self.share_blocks_g)+len(self.share_blocks)+1].mean(1)
+            cls_token = x[:,:len(self.share_blocks_g)+1].mean(1)
         else:
-            cls_token = x[:,:len(self.share_blocks)+1].mean(1)
+            cls_token = x[:,:1].mean(1)
         logits = self.head(cls_token)
         output_dict['logits']  = logits
         return output_dict
@@ -404,7 +404,7 @@ class VisionTransformer_m(nn.Module):
                             ), dim=1)
                 x, weights = layer_block(x)
                 #### datasets with domain feature shift
-                if self.args.dataset in ['office'] and i == 5:
+                if self.args.dataset in ['office','domainnet'] and i == 5:
                     break
             x = self.transformer.encoder.encoder_norm(x)
             out_x = x[:,0]
@@ -438,6 +438,11 @@ class VisionTransformer_m(nn.Module):
             else:
                 prompt_sim = (1- prompt_sim)
             scores, topk = prompt_sim.topk(1, 1, False, True)
+            if self.args.dataset in ['office','domainnet']:
+                np_array = topk.cpu().detach().numpy().flatten()
+                counts = np.bincount(np_array)
+                mode = np.argmax(counts)
+                topk = torch.full_like(topk, mode)
             for group in torch.flatten(topk[:,0:1]).cpu().detach().numpy():
                 self.cluster_size[int(group)] +=1
             batched_key_norm = prompt_key_norm[topk[:,0:1]]        

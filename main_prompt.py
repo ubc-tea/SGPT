@@ -11,6 +11,7 @@ import random
 from modelinit import *
 import numpy as np
 from office_dataset import prepare_data
+from domainnet_dataset import prepare_data_domain
 from utils import *
 import argparse
 def get_args():
@@ -87,7 +88,7 @@ print(save_path)
 with open(os.path.join(save_path,'commandline_args.txt'), 'w') as f:
     json.dump(args.__dict__, f, indent=2)
 
-if args.dataset not in ['office']:
+if args.dataset not in ['office','domainnet']:
     X_train, y_train, X_test, y_test, net_dataidx_map_train, net_dataidx_map_test, traindata_cls_counts, testdata_cls_counts = partition_data(
                 args.dataset, args.datadir, args.partition, args.n_parties, beta=args.beta, logdir=args.logdir,args=args)
 
@@ -95,6 +96,9 @@ arr = np.arange(args.n_parties)
 
 if args.dataset == 'office':
     data_loader_dict,net_dataidx_map_train = prepare_data(args)
+    num_classes = 10
+elif args.dataset == 'domainnet':
+    data_loader_dict,net_dataidx_map_train = prepare_data_domain(args)
     num_classes = 10
 else:
     ###### Data Set related ###### 
